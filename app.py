@@ -3,7 +3,6 @@ import pytesseract
 from PIL import Image
 import pdfplumber
 import re
-from pdf2image import convert_from_bytes
 text = ""
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"

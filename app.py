@@ -1,12 +1,14 @@
 import streamlit as st
-import pytesseract
 from PIL import Image
 import pdfplumber
 import re
+import easyocr
+import numpy as np
 text = ""
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
+@st.cache_resource
+def load_ocr():
+    return easyocr.Reader(['en'], gpu=False)
 
 
 roles = {
@@ -94,8 +96,7 @@ if uploaded_file:
 
     st.success("CV başarıyla yüklendi!")
 
-st.info("Not: Scan edilmiş PDF'ler için image yükleme önerilir.")
-
+st.info("PDF veya görsel yükleyerek CV'ni analiz edebilirsin.")
 
 image_file = st.file_uploader("🖼️ CV yükle (Image)", type=["png", "jpg", "jpeg"])
 
@@ -103,8 +104,16 @@ if image_file:
     image = Image.open(image_file)
     st.image(image, caption="Yüklenen CV", use_column_width=True)
 
-st.warning("⚠️ OCR özelliği yalnızca local ortamda desteklenmektedir.")
+    with st.spinner("OCR çalışıyor..."):
+        reader = load_ocr()
+        result = reader.readtext(np.array(image))
 
+        if result:
+            text = " ".join([res[1] for res in result])
+            st.success("Görselden metin çıkarıldı!")
+        else:
+            st.error("Metin çıkarılamadı, farklı bir görsel deneyin.")    
+       
 text_input = st.text_area("CV Metni (manuel giriş)")
 
 if text_input:

@@ -20,7 +20,6 @@ roles = {
 }
 
 
-# CV analiz fonksiyonu
 def analyze_cv(text, selected_skills):
     text = text.lower()
     text = text.replace("\n", " ")
@@ -38,7 +37,7 @@ def analyze_cv(text, selected_skills):
     score = len(found) / len(selected_skills) * 100
     
     return found, missing, score
-# Feedback fonksiyonu
+
 def generate_feedback(score, missing):
     if score > 70:
         level = "Güçlü CV 👍"
@@ -96,7 +95,6 @@ if uploaded_file:
 
     st.success("CV başarıyla yüklendi!")
 
-# 👇 BURAYA EKLE
 st.info("Not: Scan edilmiş PDF'ler için image yükleme önerilir.")
 
 
@@ -141,7 +139,6 @@ if st.button("Analiz Et"):
     for s in missing[:5]:
         st.write("➕", s)
 
-    # 🔥 BURASI ÖNEMLİ
     if job_desc:
         matched, missing_job = compare_with_job(text.lower(), job_desc, selected_skills)
 

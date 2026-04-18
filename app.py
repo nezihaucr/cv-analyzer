@@ -101,9 +101,9 @@ image_file = st.file_uploader("🖼️ CV yükle (Image)", type=["png", "jpg", "
 
 if image_file:
     image = Image.open(image_file)
-    text = pytesseract.image_to_string(image)
     st.image(image, caption="Yüklenen CV", use_column_width=True)
-    st.success("Görselden metin çıkarıldı!")    
+
+st.warning("⚠️ OCR özelliği yalnızca local ortamda desteklenmektedir.")
 
 text_input = st.text_area("CV Metni (manuel giriş)")
 

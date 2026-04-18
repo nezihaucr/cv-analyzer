@@ -17,16 +17,16 @@ An AI-powered web application that analyzes resumes (CVs) and provides feedback 
   Extracts text from uploaded PDF resumes
 
 * 🖼️ **Image OCR Support**
-  Supports image-based CVs using OCR (Tesseract)
+  Supports image-based CVs using OCR (Tesseract) for text extraction
 
 * 📊 **Skill Matching & Scoring**
   Calculates a score based on how well your CV matches required skills
 
-* 🧠 **AI Feedback**
-  Provides intelligent feedback based on your score
+* 🧠 **Feedback System**
+  Provides feedback based on CV score and skill analysis
 
 * 🎯 **Job Description Matching**
-  Compare your CV with a job posting and see missing skills
+  Compare your CV with a job posting and identify missing skills
 
 ---
 
@@ -40,12 +40,20 @@ An AI-powered web application that analyzes resumes (CVs) and provides feedback 
 
 ---
 
+## 🧠 Key Concepts
+
+* Natural Language Processing (basic keyword matching)
+* Optical Character Recognition (OCR)
+* Rule-based scoring system
+
+---
+
 ## ⚙️ Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/nezihaucar/cv-analyzer.git
+git clone https://github.com/nezihaucr/cv-analyzer.git
 cd cv-analyzer
 ```
 
@@ -88,6 +96,8 @@ streamlit run app.py
 **Neziha Uçar**
 AI Engineering Student
 
+GitHub: https://github.com/nezihaucr
+
 ---
 
 ## ⭐ Future Improvements
@@ -97,5 +107,3 @@ AI Engineering Student
 * Deployment (Streamlit Cloud / Docker)
 
 ---
-
-

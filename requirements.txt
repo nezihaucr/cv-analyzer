@@ -1,5 +1,6 @@
 streamlit
-pytesseract
-Pillow
 pdfplumber
+Pillow
 easyocr
+numpy
+easyocr==1.7.2

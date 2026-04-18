@@ -4,7 +4,10 @@ import pdfplumber
 import re
 import easyocr
 import numpy as np
-text = ""
+
+
+if "text" not in st.session_state:
+    st.session_state.text = ""
 
 @st.cache_resource
 def load_ocr():
@@ -94,6 +97,8 @@ if uploaded_file:
         for page in pdf.pages:
             text += page.extract_text() or ""
 
+    st.session_state.text = text        
+
     st.success("CV başarıyla yüklendi!")
 
 st.info("PDF veya görsel yükleyerek CV'ni analiz edebilirsin.")
@@ -113,25 +118,26 @@ if image_file:
 
             if result:
                 text = " ".join([res[1] for res in result])
+                st.session_state.text = text 
                 st.success("Görselden metin çıkarıldı!")
             else:
                 st.error("Metin çıkarılamadı.")   
        
 text_input = st.text_area("CV Metni (manuel giriş)")
 
-if text_input:
-    text = text_input
+if text_input.strip():
+    st.session_state.text = text_input
     
 job_desc = st.text_area("💼 İş ilanını yapıştır (opsiyonel)")
 
 if st.button("Analiz Et"):
 
-    if not text:
+    if not st.session_state.text:
         st.error("Lütfen CV gir veya yükle ❗")
         st.stop() 
 
     selected_skills = roles[role]
-    found, missing, score = analyze_cv(text, selected_skills)
+    found, missing, score = analyze_cv(st.session_state.text, selected_skills)
     level, suggestion = generate_feedback(score, missing)
 
     st.subheader("📊 Sonuçlar")
@@ -151,7 +157,7 @@ if st.button("Analiz Et"):
         st.write("➕", s)
 
     if job_desc:
-        matched, missing_job = compare_with_job(text.lower(), job_desc, selected_skills)
+        matched, missing_job = compare_with_job(st.session_state.text.lower(), job_desc, selected_skills)
 
         st.subheader("🎯 İş İlanına Uyum")
 

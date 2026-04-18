@@ -4,6 +4,7 @@ import pdfplumber
 import re
 import easyocr
 import numpy as np
+import platform
 text = ""
 
 @st.cache_resource
@@ -104,15 +105,20 @@ if image_file:
     image = Image.open(image_file)
     st.image(image, caption="Yüklenen CV", use_column_width=True)
 
-    with st.spinner("OCR çalışıyor..."):
-        reader = load_ocr()
-        result = reader.readtext(np.array(image))
+    is_mobile = "Linux" in platform.system()  
 
-        if result:
-            text = " ".join([res[1] for res in result])
-            st.success("Görselden metin çıkarıldı!")
-        else:
-            st.error("Metin çıkarılamadı, farklı bir görsel deneyin.")    
+    if is_mobile:
+        st.warning("📱 Mobilde OCR performans problemi olabilir. Lütfen PDF kullanın.")
+    else:
+        with st.spinner("OCR çalışıyor..."):
+            reader = load_ocr()
+            result = reader.readtext(np.array(image))
+
+            if result:
+                text = " ".join([res[1] for res in result])
+                st.success("Görselden metin çıkarıldı!")
+            else:
+                st.error("Metin çıkarılamadı.")   
        
 text_input = st.text_area("CV Metni (manuel giriş)")
 

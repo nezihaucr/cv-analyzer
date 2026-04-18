@@ -130,11 +130,7 @@ if text_input.strip():
     
 job_desc = st.text_area("💼 İş ilanını yapıştır (opsiyonel)")
 
-if st.button("Analiz Et"):
-
-    if not st.session_state.text:
-        st.error("Lütfen CV gir veya yükle ❗")
-        st.stop() 
+if st.session_state.text:
 
     selected_skills = roles[role]
     found, missing, score = analyze_cv(st.session_state.text, selected_skills)
@@ -157,7 +153,9 @@ if st.button("Analiz Et"):
         st.write("➕", s)
 
     if job_desc:
-        matched, missing_job = compare_with_job(st.session_state.text.lower(), job_desc, selected_skills)
+        matched, missing_job = compare_with_job(
+            st.session_state.text.lower(), job_desc, selected_skills
+        )
 
         st.subheader("🎯 İş İlanına Uyum")
 
@@ -168,6 +166,3 @@ if st.button("Analiz Et"):
         st.write("❌ Eksik skill'ler:")
         for m in missing_job:
             st.write("➕", m)
-
-          
-

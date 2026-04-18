@@ -1,5 +1,9 @@
 # 🚀 AI CV Analyzer
 
+## 📸 Demo
+
+![App Screenshot](screenshot.png)
+
 An AI-powered web application that analyzes resumes (CVs) and provides feedback based on technical skills, selected job roles, and job descriptions.
 
 ---
@@ -93,3 +97,5 @@ AI Engineering Student
 * Deployment (Streamlit Cloud / Docker)
 
 ---
+
+

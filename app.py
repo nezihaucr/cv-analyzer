@@ -103,6 +103,8 @@ image_file = st.file_uploader("🖼️ CV yükle (Image)", type=["png", "jpg", "
 
 if image_file:
     image = Image.open(image_file)
+    max_size = 1000
+    image.thumbnail((max_size, max_size))
     st.image(image, caption="Yüklenen CV", use_column_width=True)
 
     is_mobile = "Linux" in platform.system()  
